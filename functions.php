@@ -1,5 +1,5 @@
 
-//cut title
+//Fitur untuk memotong title
 function ShortenText($text) { // Function name ShortenText
   $chars_limit = 50; // Character length
   $chars_text = strlen($text);
