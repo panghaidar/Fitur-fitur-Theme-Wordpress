@@ -1,0 +1,19 @@
+<div class="football-sidebar">
+            <h3 class="sidebar">FOOTBALL</h3>
+            <?php $my_query = new WP_Query('category_name=Tips Today&posts_per_page=6');
+      while ($my_query->have_posts()) : $my_query->the_post();
+      $do_not_duplicate = $post->ID; ?>
+  				<div class="row author">
+  					<div class="large-12 columns foot-post">
+  						<div class="small-4 columns">
+  						<img src="<?php echo get_template_directory_uri(); ?>/images/baju.png">
+  					</div>
+  					<div class="small-8 columns author"> 
+  						<h6><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php echo ShortenText(get_the_title()); ?></a></h6>
+  					</div>
+  					</div>
+  				</div><!--end row author--> 
+           <?php endwhile; ?>
+      <?php // Reset Post Data
+      wp_reset_postdata();?> 
+  			</div><!--end football-sidebar-->
