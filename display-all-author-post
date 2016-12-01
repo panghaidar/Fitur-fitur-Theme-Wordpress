@@ -1,0 +1,43 @@
+<div class="penulis">
+          <?php
+    $authors=get_users();
+    $i=0;
+    //get all users list
+    foreach($authors as $author){
+        $authorList[$i]['id']=$author->data->ID;
+        $authorList[$i]['name']=$author->data->display_name;
+        $i++;
+    }
+    ?>
+    <ul>
+        <?php 
+        foreach($authorList as $author){
+            $args=array(
+                    'showposts'=>1,
+                    'author'=>$author['id'],
+                    'caller_get_posts'=>1
+                   );
+            $query = new WP_Query($args);
+            if($query->have_posts() ) {
+                while ($query->have_posts()){
+                    $query->the_post();
+        ?>
+  				<div class="row author">
+  					<div class="large-12 columns">
+  						<div class="small-4 columns">
+  						<img src="<?php echo get_template_directory_uri(); ?>/images/baju.png">
+  					</div>
+  					<div class="small-8 columns author">  
+  						<h6 class="author"><?php echo $author['name']; ?></h6>
+  						<small><?php the_date(); ?></small>
+  						<h6><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h6>
+  						<i class="fa fa-eye view"> 999</i> 
+  					</div>
+  					</div>
+  				</div><!--end row author--> 
+          <?php
+                }
+                wp_reset_postdata();
+            }
+        }
+        ?>
