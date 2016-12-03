@@ -1,0 +1,12 @@
+ <h3 class="sidebar">TRENDING</h3>
+        <?
+                $tags = get_tags();
+                if ($tags) {
+                        ?><ul class="tags"><?
+                        foreach ($tags as $tag) {
+                                echo '<li><a href="' . get_tag_link( $tag->term_id ) . '" title="' . sprintf( __( "View all posts in %s" ), $tag->name ) . '" ' . '>' . $tag->name.'</a></li>';
+                        }
+                        ?></ul><?
+                }
+        ?>
+      </div><!--end trending-->
