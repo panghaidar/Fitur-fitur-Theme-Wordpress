@@ -1,0 +1,15 @@
+<div class="member">
+        <ul class="menu member">
+          <li><a href="#" data-open="register">Register</a></li>
+          <li style="width: 200px;"><?php
+  if ( is_user_logged_in() ) {
+     echo '<a href="'.get_permalink( get_page_by_path( 'user' ) ).'" style="float:left;">Akunku</a>' ;
+      echo '<a href="'.wp_logout_url( get_permalink() ).'" >Logout </a>';
+
+    } else {
+      echo '<a href="#" data-open="login">Login</a>' ;
+
+  }
+  ?></li>
+        </ul>
+      </div>
