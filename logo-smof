@@ -1,0 +1,9 @@
+<a href="<?php echo get_site_url();?>" title="<?php ehco $bloginfo = get_bloginfo( $show);?>" class="logo"
+<?php global $smof_data; ?>
+<?php if($data['logo_upload']);?>
+<a href="<?php echo $smof_data['linkiklan1']; ?>"><img src="<?php echo $smof_data['iklan1']; ?>"></a>
+<?php else: ?>
+    <img src="<?php echo get_template_directory_uri(); ?>/images/ads-top.png">
+<?php endif;?>
+
+</a>
