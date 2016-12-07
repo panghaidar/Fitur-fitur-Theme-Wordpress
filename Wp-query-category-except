@@ -1,0 +1,28 @@
+<div class="tes">
+          <?php /* Start the Loop */ ?>
+<?php global $query_string;
+    query_posts( $query_string . '&ignore_sticky_posts=1&cat=-' . get_cat_ID( 'Cerpen' ) ); ?>
+
+    <?php while ( have_posts() ) : the_post(); ?>
+
+        
+            <div class="small-5 columns thumb-feed">
+            <?php   
+                  if ( has_post_thumbnail() ) {  
+                    the_post_thumbnail();  
+                    } 
+                    else {
+  echo '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/images/thumb.gif" alt="<?php the_title(); ?>"  />';
+            }
+                ?>
+          </div>
+          <div class="small-7 columns kontent">
+            <h6 style="font-size: 12px;color: #777;"><?php the_category(' , '); ?></h6>
+            <h2 class="judul-feed"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h2>
+            <p style="font-size: 10px;color: #999;"><?php the_date(); ?></p>
+            <p><?php echo get_the_catcharacter_excerpt(); ?>...</p>
+          </div>
+
+    <?php endwhile; // end of the loop. ?>
+<?php wp_reset_query(); // reset the query ?>
+        </div>
