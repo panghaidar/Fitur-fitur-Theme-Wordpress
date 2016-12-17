@@ -1,0 +1,11 @@
+<?php 
+    global $smof_data;
+    $slides = $smof_data['pingu_slider']; //get the slides array
+
+    foreach ($slides as $slide) {
+        echo $slide['title'];
+        echo $slide['url'];
+        echo $slide['link'];
+        echo $slide['description'];
+    }
+    ?>
