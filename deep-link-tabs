@@ -4,4 +4,4 @@ if(link_tab){
     $('[data-tabs]').eq(0).foundation('selectTab', $('#'+link_tab));
 }
 <script>
-<a href="http://localhost/wpku/tentang/#panel6v">tes</a>
+<a href="<?php echo esc_url( home_url( '/' ) ); ?>tentang/#panel6v">tes</a>
