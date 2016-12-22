@@ -1,0 +1,7 @@
+<script>
+var link_tab = window.location.hash.substr(1);
+if(link_tab){
+    $('[data-tabs]').eq(0).foundation('selectTab', $('#'+link_tab));
+}
+<script>
+<a href="http://localhost/wpku/tentang/#panel6v">tes</a>
