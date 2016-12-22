@@ -1,0 +1,1 @@
+<?php echo do_shortcode($smof_data["tablejadwalkapal"]); ?>
