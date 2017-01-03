@@ -1,3 +1,4 @@
+//functions.php
 <?php
 $sidebars = array('Slider');
 foreach ($sidebars as $sidebar) {
@@ -18,3 +19,10 @@ foreach ($sidebars as $sidebar) {
     ));
 }
 ?>
+
+//index.php
+<div class="large-3 columns sidebar">
+            <aside class="sidebar-widget">
+              <?php dynamic_sidebar("Sidebar"); ?>
+            </aside>
+	</div>
