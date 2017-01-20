@@ -13,3 +13,17 @@
   ?></li>
         </ul>
       </div>
+//============//
+<ul class="menu member">
+          <li><a href="#" data-open="register">Register</a></li>
+          <li style="width: 200px;font-size: 12px;color: #999;"><?php
+  if ( is_user_logged_in() ) {
+     global $current_user;
+      get_currentuserinfo();
+      echo '<a href="#" data-open="login">LOGIN</a>' ;
+    } else {
+      
+echo '' . $current_user->display_name . "\n";
+  }
+  ?></li>
+        </ul>
