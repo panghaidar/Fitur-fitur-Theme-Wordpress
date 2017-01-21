@@ -27,3 +27,8 @@ echo '' . $current_user->display_name . "\n";
   }
   ?></li>
         </ul>
+//======//
+get_author_posts_url($current_user->ID);
+
+hasilnya
+http://localhost/wordpress/author/admin/ 
