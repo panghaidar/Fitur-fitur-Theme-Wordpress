@@ -1,0 +1,16 @@
+// TGM plugin activation
+require_once get_template_directory() . '/inc/class-tgm-plugin-activation.php';
+function alx_plugins() {
+    $plugins = array(
+        array(
+            'name'              => 'DW Question & Answer',
+            'slug'              => 'dw-question-answer',
+        ),
+        array(
+            'name'              => 'DW Twitter',
+            'slug'              => 'dw-twitter',
+        ),
+    );  
+    tgmpa( $plugins );
+}
+add_action( 'tgmpa_register', 'alx_plugins' );
