@@ -1,0 +1,59 @@
+<?php 
+/*
+Template name:Tes
+*/
+ ?>
+<?php get_header(); ?>
+<div class="large-12 columns single-post">
+  <div class="row small-up-2 large-up-4 profilusaha">
+  		<?php
+  // set up or arguments for our custom query
+  $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+  $query_args = array(
+    'post_type' => 'post',
+    'category_name' => 'profil-usaha',
+    'posts_per_page' => 4,
+    'paged' => $paged
+  );
+  // create a new instance of WP_Query
+  $the_query = new WP_Query( $query_args );
+?>
+
+<?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); // run the loop ?>
+  <div class="column profilusaha">
+            <div class=" ukm">
+              <a href="<?php the_permalink(); ?>"><?php   
+                  if ( has_post_thumbnail() ) {  
+                    the_post_thumbnail();  
+                    } 
+                    else {
+  echo '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/images/thumb.gif" alt="<?php the_title(); ?>"  />';
+            }
+                ?></a>
+              <h3><a href="<?php the_permalink(); ?>" class="atabs"><?php the_title(); ?></a></h3>
+<p class="atabs"><?php echo get_the_catcharacter_excerpt(); ?>...</p>
+<a href="<?php the_permalink(); ?>" class="kategori"><?php the_category(','); ?></a>
+            </div>
+          </div><!--end 3 profilusaha-->
+<?php endwhile; ?>
+
+<?php if ($the_query->max_num_pages > 1) { // check if the max number of pages is greater than 1  ?>
+  <nav class="large-12 columns prev-next-posts">
+    <div class="prev-posts-link">
+      <?php echo get_next_posts_link( 'Older Entries', $the_query->max_num_pages ); // display older posts link ?>
+    </div>
+    <div class="next-posts-link">
+      <?php echo get_previous_posts_link( 'Newer Entries' ); // display newer posts link ?>
+    </div>
+  </nav>
+<?php } ?>
+
+<?php else: ?>
+  <article>
+    <h1>Sorry...</h1>
+    <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
+  </article>
+<?php endif; ?>
+  </div>
+</div><!--end 12 single-post-->
+<?php get_footer(); ?>
