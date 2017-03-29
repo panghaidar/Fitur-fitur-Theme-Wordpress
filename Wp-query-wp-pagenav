@@ -1,0 +1,36 @@
+<?php 
+/*
+Template name:Tes
+*/
+ ?>
+<?php get_header(); ?>
+<div class="large-12 columns single-post">
+  <div class="row small-up-2 large-up-4 profilusaha">
+  		<?php 
+$my_query = new WP_Query( array( 'category' => 'profil-usaha', 'paged' => get_query_var('paged') ) );?>
+
+<?php while ( $my_query->have_posts() ) : $my_query->the_post();?>
+  <div class="column profilusaha">
+            <div class=" ukm">
+              <a href="<?php the_permalink(); ?>"><?php   
+                  if ( has_post_thumbnail() ) {  
+                    the_post_thumbnail();  
+                    } 
+                    else {
+  echo '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/images/thumb.gif" alt="<?php the_title(); ?>"  />';
+            }
+                ?></a>
+              <h3><a href="<?php the_permalink(); ?>" class="atabs"><?php the_title(); ?></a></h3>
+<p class="atabs"><?php echo get_the_catcharacter_excerpt(); ?>...</p>
+<a href="<?php the_permalink(); ?>" class="kategori"><?php the_category(','); ?></a>
+            </div>
+          </div><!--end 3 profilusaha-->
+<?php endwhile;?>
+
+<?php wp_pagenavi( array( 'query' => $my_query ) );?>
+
+ <?php wp_reset_postdata(); ?>
+         
+  </div>
+</div><!--end 12 single-post-->
+<?php get_footer(); ?>
