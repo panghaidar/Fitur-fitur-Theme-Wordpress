@@ -1,0 +1,24 @@
+<div class="row small-up-2 large-up-4">
+
+        <?php $my_query = new WP_Query('category_name=Profil usaha&posts_per_page=12');
+      while ($my_query->have_posts()) : $my_query->the_post();
+      $do_not_duplicate = $post->ID; ?>
+          <div class="column profilusaha">
+            <div class=" ukm">
+              <a href="<?php the_permalink(); ?>"><?php   
+                  if ( has_post_thumbnail() ) {  
+                    the_post_thumbnail();  
+                    } 
+                    else {
+  echo '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/images/thumb.gif" alt="<?php the_title(); ?>"  />';
+            }
+                ?></a>
+              <h3><a href="<?php the_permalink(); ?>" class="atabs"><?php the_title(); ?></a></h3>
+<p class="atabs"><?php echo get_the_catcharacter_excerpt(); ?>...</p>
+<a href="<?php the_permalink(); ?>" class="kategori">Bisnis Fashion</a>
+            </div>
+          </div><!--end 3 profilusaha-->
+<?php endwhile; ?>
+      <?php // Reset Post Data
+      wp_reset_postdata();?> 
+        </div><!--row profilusaha-->
