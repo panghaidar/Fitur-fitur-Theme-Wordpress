@@ -53,7 +53,7 @@ Template name:Tes
     <h1>Sorry...</h1>
     <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
   </article>
-<?php endif; ?>
+<?php endif;?>
   </div>
 </div><!--end 12 single-post-->
 <?php get_footer(); ?>
