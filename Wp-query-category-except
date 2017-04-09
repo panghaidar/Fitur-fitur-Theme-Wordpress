@@ -23,6 +23,6 @@
             <p><?php echo get_the_catcharacter_excerpt(); ?>...</p>
           </div>
 
-    <?php endwhile; // end of the loop. ?>
+    <?php endwhile; // end of the loop.. ?>
 <?php wp_reset_query(); // reset the query ?>
         </div>
