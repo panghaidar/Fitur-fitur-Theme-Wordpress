@@ -1,0 +1,45 @@
+<div class="row small-up-2 large-up-2">
+
+        <?php
+    $categories = get_categories( array(
+        'child_of'=>'26'
+    ) );
+
+    $subcategories = array();
+
+    foreach ( $categories as $category ) {
+        $subcategories[] = $category->cat_ID;
+    }
+?>
+
+<?php
+    $new_loop = new WP_Query( array(
+    'post_type' => 'post',
+    'category__in' => $subcategories,
+    'posts_per_page' => 5
+    ) );
+?>
+
+<?php if ( $new_loop->have_posts() ) : while ( $new_loop->have_posts() ) : $new_loop->the_post(); ?>
+
+    <div class="column profilusaha">
+            <div class=" ukm">
+              <a href="<?php the_permalink(); ?>"><?php   
+                  if ( has_post_thumbnail() ) {  
+                    the_post_thumbnail();  
+                    } 
+                    else {
+  echo '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/images/thumb.gif" alt="<?php the_title(); ?>"  />';
+            }
+                ?></a>
+              <h3><a href="<?php the_permalink(); ?>" class="atabs"><?php the_title(); ?></a></h3>
+<p class="atabs"><?php echo get_the_catcharacter_excerpt(); ?>...</p>
+<a href="<?php the_permalink(); ?>" class="kategori"><?php the_category(','); ?></a>
+            </div>
+          </div><!--end 3 profilusaha-->
+
+<?php endwhile; else: ?>
+    No posts found
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+        </div><!--row profilusaha-->
