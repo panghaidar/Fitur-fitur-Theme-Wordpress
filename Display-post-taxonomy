@@ -1,0 +1,40 @@
+<div class="large-10 columns taxo-agen">
+<?php
+    $custom_terms = get_terms('agen');
+
+foreach($custom_terms as $custom_term)
+    wp_reset_query();
+    $args = array('post_type' => 'direktoriagen',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'agen',
+                'field' => 'slug',
+                'terms' => $custom_term->slug,
+            ),
+        ),
+     );
+
+     $the_query = new WP_Query( $args );?>
+    <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+    <div class="column profilusaha">
+            <div class=" ukm">
+              <a href="<?php the_field('link_agen'); ?>"><?php   
+                  if ( has_post_thumbnail() ) {  
+                    the_post_thumbnail();  
+                    } 
+                    else {
+  echo '<img src="' . get_bloginfo( 'stylesheet_directory' ) . '/images/thumb.gif" alt="<?php the_title(); ?>"  />';
+            }
+                ?></a>
+              <h3><a href="<?php the_field('link_agen'); ?>" class="atabs"><?php the_title(); ?></a></h3>
+            </div>
+          </div><!--end 3 profilusaha-->
+<?php endwhile; else : ?>
+<div class="large-12 columns wpnav">
+<?php wp_pagenavi( array( 'query' => $my_query ) );?>
+</div>
+    <p>There were no testimonials :( </p>
+
+<?php endif;
+wp_reset_postdata(); ?>
+  		</div> <!--end 10 taxo-agen-->
