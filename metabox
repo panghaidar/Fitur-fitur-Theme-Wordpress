@@ -1,0 +1,286 @@
+<?php 
+add_action( 'after_setup_theme', 'wpt_setup' );
+    if ( ! function_exists( 'wpt_setup' ) ):
+        function wpt_setup() {  
+            register_nav_menu( 'primary', __( 'Primary navigation', 'wptuts' ) );
+        } endif;
+//load css
+function kuscripts() {
+wp_enqueue_style( 'property-style', get_stylesheet_uri() );
+wp_enqueue_style( 'scss-style', get_template_directory_uri() .'/assets/scss/style.css',array(),'1.0' );
+wp_enqueue_style( 'bootstrap', get_template_directory_uri() .'/assets/scss/bootstrap/css/bootstrap.csss',array(),'4.0.3' );
+}
+add_action( 'wp_enqueue_scripts', 'kuscripts' );
+
+// Property fields
+/*---------------------
+
+Custom Field
+
+---------------------
+
+*/
+
+$new_meta_boxes =
+
+  array(
+
+    "input-one" => array(
+
+        "name" => "rumah-status",
+
+        "title" => "Properti dijual / disewakan",
+        "std" =>"",
+
+        "description" => "Contoh: Dicari"),
+
+    "input-two" => array(
+
+        "name" => "kamar-tidur",
+
+        "title" => "Jumlah Kamar tidur",
+         "std" =>"",
+
+        "description" => "Jumlah kamar tidur properti anda"),
+
+    "input-third" => array(
+
+        "name" => "kamar-mandi",
+
+        "title" => "Jumlah Kamar mandi",
+         "std" =>"",
+
+        "description" => "Jumlah kamar mandi properti anda"),
+
+    "input-four" => array(
+
+        "name" => "status-properti",
+
+        "title" => "Status kepemilikan",
+         "std" =>"",
+
+        "description" => "Contoh: Hak Guna Bangunan"),
+
+    "input-five" => array(
+
+        "name" => "harga-properti",
+
+        "title" => "Harga Properti",
+         "std" =>"",
+
+        "description" => "Contoh: Rp 5.000.000.000"),
+
+    "input-six" => array(
+
+        "name" => "kamar-pembantu",
+         "std" =>"",
+
+        "title" => "Jumlah Kamar Pembantu",
+
+        "description" => " "),
+
+    "input-seven" => array(
+
+        "name" => "luas-tanah",
+         "std" =>"",
+
+        "title" => "Luas Tanah",
+
+        "description" => ""),
+
+    "input-eight" => array(
+
+        "name" => "ukuran-tanah",
+         "std" =>"",
+
+        "title" => "Ukuran Tanah",
+
+        "description" => ""),
+
+  
+
+    "input-ten" => array(
+
+        "name" => "luas-bangunan",
+         "std" =>"",
+
+        "title" => "Luas Bangunan",
+
+        "description" => ""),
+
+    "input-eleven" => array(
+
+        "name" => "jumlah-lantai",
+         "std" =>"",
+        "title" => "Jumlah Lantai",
+
+        "description" => ""),
+
+    "input-twelev" => array(
+
+        "name" => "sumber-air",
+         "std" =>"",
+
+        "title" => "Sumber Air",
+
+        "description" => ""),
+
+    "input-third teen" => array(
+
+        "name" => "daya-listrik",
+         "std" =>"",
+
+        "title" => "Daya Listrik",
+
+        "description" => ""),
+
+   
+
+      "input-seven-teen" => array(
+
+        "name" => "hadap-arah",
+         "std" =>"",
+
+        "title" => "Hadap Arah",
+
+        "description" => ""),
+
+);
+
+//end of array
+
+
+
+
+
+//now we begin a function to create the html that comprise the new meta boxes
+
+//below you can edit/add inline css if you want to change how the label and description appear on the admin page
+
+//worth testing, but not important to manipulate this portion of the code unless you have a super specific objective in mind.
+
+function new_meta_boxes() {
+
+global $post, $new_meta_boxes;
+
+  
+
+  foreach($new_meta_boxes as $meta_box) {
+
+    $meta_box_value = get_post_meta($post->ID, $meta_box['name'], true);
+
+    
+
+    if($meta_box_value == "")
+
+      $meta_box_value = $meta_box['std'];
+
+    echo'<input type="hidden" name="'.$meta_box['name'].'_noncename" id="'.$meta_box['name'].'_noncename"
+
+value="'.wp_create_nonce( plugin_basename(__FILE__) ).'" />';
+
+
+
+    echo'<label style="font-weight: bold; display: block; padding: 5px 0 2px 2px"
+
+for="'.$meta_box['name'].'">'.$meta_box['title'].'</label>';
+
+
+
+    echo'<input type="text" name="'.$meta_box['name'].'" value="'.$meta_box_value.'" size="55" /><br />';
+
+    
+
+    echo'<p><label for="'.$meta_box['name'].'">'.$meta_box['description'].'</label></p>';
+
+  }
+
+}//end of new_meta_boxes() function
+
+
+
+
+
+//another function begins here. This is what actually creates the meta box. The one you see on the admin page.
+
+//you should edit the title for your meta box below. don't worry about anything else
+
+function create_meta_box() {
+
+  global $theme_name;
+
+  if ( function_exists('add_meta_box') ) {
+
+    add_meta_box( 'new-meta-boxes', 'Rumahid Theme Panel', 'new_meta_boxes', 'post', 'normal', 'high' );
+
+  }
+
+}//end of create_meta_box() function
+
+
+
+//the third and most important function. this is what effectively saves your meta data into your database.
+
+//DO NOT EDIT unless you have expert php skills or advice.
+
+function save_postdata( $post_id ) {
+
+  global $post, $new_meta_boxes;
+
+  foreach($new_meta_boxes as $meta_box) {
+
+  // Verify
+
+  if ( !wp_verify_nonce( $_POST[$meta_box['name'].'_noncename'], plugin_basename(__FILE__) )) {
+
+    return $post_id;
+
+  }
+
+  
+
+  if ( 'page' == $_POST['post_type'] ) {
+
+  if ( !current_user_can( 'edit_page', $post_id ))
+
+    return $post_id;
+
+  } else {
+
+  if ( !current_user_can( 'edit_post', $post_id ))
+
+    return $post_id;
+
+  }
+
+  
+
+  $data = $_POST[$meta_box['name']];
+
+  
+
+  if(get_post_meta($post_id, $meta_box['name']) == "")
+
+    add_post_meta($post_id, $meta_box['name'], $data, true);
+
+  elseif($data != get_post_meta($post_id, $meta_box['name'], true))
+
+    update_post_meta($post_id, $meta_box['name'], $data);
+
+  elseif($data == "")
+
+    delete_post_meta($post_id, $meta_box['name'], get_post_meta($post_id, $meta_box['name'], true));
+
+  }
+
+}//end of save_postdata () function
+
+
+
+//these are action hooks that place your special functions defined above onto the admin page.
+add_action('admin_menu', 'create_meta_box');
+add_action('save_post', 'save_postdata');
+ ?>
+ 
+ == CARA MANGGIL ==
+ Properti: <a href="<?php the_permalink();?>"><?php echo get_post_meta($post->ID, 'rumah-status', true) ?>
