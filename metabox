@@ -1,16 +1,4 @@
 <?php 
-add_action( 'after_setup_theme', 'wpt_setup' );
-    if ( ! function_exists( 'wpt_setup' ) ):
-        function wpt_setup() {  
-            register_nav_menu( 'primary', __( 'Primary navigation', 'wptuts' ) );
-        } endif;
-//load css
-function kuscripts() {
-wp_enqueue_style( 'property-style', get_stylesheet_uri() );
-wp_enqueue_style( 'scss-style', get_template_directory_uri() .'/assets/scss/style.css',array(),'1.0' );
-wp_enqueue_style( 'bootstrap', get_template_directory_uri() .'/assets/scss/bootstrap/css/bootstrap.csss',array(),'4.0.3' );
-}
-add_action( 'wp_enqueue_scripts', 'kuscripts' );
 
 // Property fields
 /*---------------------
